@@ -12,6 +12,13 @@ mysqli_query($con,"SET CHARACTER SET UTF8");
 //$sql="select * from contact";
 	$select_value = $_POST['genre'];
     $select_sort = $_POST['sort'];
+	$select_year1 = $_POST['time1'];
+	$select_year2 = $_POST['time2'];
+	if($select_year1>$select_year2){
+		$temp=$select_year1;
+		$select_year1=$select_year2;
+		$select_year2=$temp;
+	}
 	$city=$_POST['city'];
 	$star=$_POST['star'];
 	$people="";
@@ -143,11 +150,11 @@ mysqli_query($con,"SET CHARACTER SET UTF8");
 	
 
 	if($my_favorite==0){
-	$data=mysqli_query($con,"select id ,c.title as name ,JSON_EXTRACT(c.cast,'$[0 to 10].name'),m.favorite,left(CAST(m.release_date AS CHAR),4)as year,m.vote_average,m.homepage,JSON_EXTRACT(m.genres,'$[0 to 10].name'),m.rate,m.overview from credits as c,movies as m  where c.movie_id =m.id  $finalmoviename $final and m.genres like'%$feature%' and left(CAST(m.release_date AS CHAR),4) between $time1 and $time2  order by $order $bigsmall");
+	$data=mysqli_query($con,"select id ,c.title as name ,JSON_EXTRACT(c.cast,'$[0 to 10].name'),m.favorite,left(CAST(m.release_date AS CHAR),4)as year,m.vote_average,m.homepage,JSON_EXTRACT(m.genres,'$[0 to 10].name'),m.rate,m.overview from credits as c,movies as m  where c.movie_id =m.id  $finalmoviename $final and m.genres like'%$feature%' and left(CAST(m.release_date AS CHAR),4) between $select_year1 and $select_year2  order by $order $bigsmall");
 		
 	}
 	else if($my_favorite==1){
-		$data=mysqli_query($con,"select id ,c.title as name ,JSON_EXTRACT(c.cast,'$[0 to 10].name'),m.favorite,left(CAST(m.release_date AS CHAR),4) as year,m.vote_average,m.homepage,JSON_EXTRACT(m.genres,'$[0 to 10].name'),m.rate,m.overview from credits as c,movies as m  where c.movie_id =m.id and m.favorite=1 $finalmoviename $final and m.genres like'%$feature%' and left(CAST(m.release_date AS CHAR),4) between $time1 and $time2  order by $order $bigsmall");
+		$data=mysqli_query($con,"select id ,c.title as name ,JSON_EXTRACT(c.cast,'$[0 to 10].name'),m.favorite,left(CAST(m.release_date AS CHAR),4) as year,m.vote_average,m.homepage,JSON_EXTRACT(m.genres,'$[0 to 10].name'),m.rate,m.overview from credits as c,movies as m  where c.movie_id =m.id and m.favorite=1 $finalmoviename $final and m.genres like'%$feature%' and left(CAST(m.release_date AS CHAR),4) between $select_year1 and $select_year2  order by $order $bigsmall");
 		
 	}
 
@@ -168,11 +175,22 @@ mysqli_query($con,"SET CHARACTER SET UTF8");
 		<p>電影明星:
 		<input name="star" type="text" id="star" value="<?php echo $star?>"/>
 		</p>
-		<p>發布時間(start):
-		<input name="time1" type="text" id="time1" value="<?php echo $time1?>"/>
-		</p>
-		<p>發布時間(end):
-		<input name="time2" type="text" id="time2" value="<?php echo $time2?>"/>
+		<p>發布時間(From):
+		<select name="time1" id="time1">
+			<?php
+				for($year1=1900;$year1<=2020;$year1++){?>
+					<option value=<?php echo $year1?>
+		  			<?php echo $select_year1==$year1?'selected':''?>><?php echo $year1 ?></option>
+				<?php } ?>
+			</select>
+		<p>發布時間(To):
+		<select name="time2" id="time2">
+			<?php
+				for($year2=2020;$year2>=1900;$year2--){?>
+					<option value=<?php echo $year2?>
+		  			<?php echo $select_year2==$year2?'selected':''?>><?php echo $year2 ?></option>
+				<?php } ?>
+			</select>
 		</p>
 		<p>類型選單:
 	    <select name="genre",id="select">
