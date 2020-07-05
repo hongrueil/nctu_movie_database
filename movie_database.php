@@ -165,12 +165,16 @@ mysqli_query($con,"SET CHARACTER SET UTF8");
 <head>
 
 <meta charset="utf-8">
-<title>資料庫網頁建置</title>
+<title>TMDB_MOVIE_DATABASE</title>
 </head>
 <body>
-	<form id="form1" name="form1" method="post" action="">
-		<p>電影名稱:
-		<input name="city" type="text" id="city" value="<?php echo $city?>"/>
+	    <h1 align="center">
+	      TMDB電影資料庫</h1>
+	      <form id="form1" name="form1" method="post" action="" >
+	      
+
+	    <p>電影名稱:
+		<input name="city" type="text" id="city"  value="<?php echo $city?>"/>
 		</p>
 		<p>電影明星:
 		<input name="star" type="text" id="star" value="<?php echo $star?>"/>
@@ -182,15 +186,15 @@ mysqli_query($con,"SET CHARACTER SET UTF8");
 					<option value=<?php echo $year1?>
 		  			<?php echo $select_year1==$year1?'selected':''?>><?php echo $year1 ?></option>
 				<?php } ?>
-			</select>
+		  </select>
 		<p>發布時間(To):
 		<select name="time2" id="time2">
 			<?php
 				for($year2=2020;$year2>=1900;$year2--){?>
-					<option value=<?php echo $year2?>
+		  <option value=<?php echo $year2?>
 		  			<?php echo $select_year2==$year2?'selected':''?>><?php echo $year2 ?></option>
 				<?php } ?>
-			</select>
+		  </select>
 		</p>
 		<p>類型選單:
 	    <select name="genre",id="select">
@@ -281,7 +285,7 @@ $rs=mysqli_fetch_row($data);
 ?>
     <tr>
 
-        <td><?php echo $rs[1];?></td><!--name-->
+<td><?php echo $rs[1];?></td><!--name-->
 	    <td><?php echo $rs[2];?></td><!--cast-->
 	    <td><?php echo $rs[9];?></td><!--overview-->	
 		<td><?php echo $rs[4];?></td><!--release year-->
