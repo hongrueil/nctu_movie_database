@@ -28,7 +28,7 @@ mysqli_query($con,"SET CHARACTER SET UTF8");
 	//echo $star[1];
 	if($_POST['star']){
 	for($z=0;$z<=strlen($star)-1;$z++){
-	if(("a"<=$star[$z]&&$star[$z]<="z")||("A"<=$star[$z]&&$star[$z]<="Z")){
+	if((("a"<=$star[$z]&&$star[$z]<="z")||("A"<=$star[$z]&&$star[$z]<="Z"))||$star[$z]==" "){
 		$people.=$star[$z];
 	}
 	if($star[$z]=="+"){
@@ -52,7 +52,7 @@ mysqli_query($con,"SET CHARACTER SET UTF8");
 		//echo $final;
 	if($_POST['city']){
 	for($o=0;$o<=strlen($city)-1;$o++){
-	if(("a"<=$city[$o]&&$city[$o]<="z")||("A"<=$city[$o]&&$city[$o]<="Z")){
+	if((("a"<=$city[$o]&&$city[$o]<="z")||("A"<=$city[$o]&&$city[$o]<="Z"))||$city[$o]==" "){
 		$moviename.=$city[$o];
 	}
 	if($city[$o]=="+"){
@@ -72,7 +72,7 @@ mysqli_query($con,"SET CHARACTER SET UTF8");
 		
 		
 	}
-	}echo $finalmoviename;
+	}
 
 	if($_POST['time1'])$time1=$_POST['time1'];
 	else $time1="0000";
